@@ -1,0 +1,12 @@
+OASISFormat: 0.4
+Name:        ReactGtk
+Version:     0.0.1
+Synopsis:    Foo
+Authors:     Yuri da Costa Albuquerque
+License:     MIT
+Plugins:     META (0.4)
+
+Library "Netwire"
+  Path:         src
+  BuildTools:   ocamlbuild
+  Modules:      Netwire
