@@ -7,3 +7,7 @@ _tags
 *.mldylib
 *.mllib
 META
+*.native
+Makefile
+configure
+*.odocl

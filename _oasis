@@ -1,12 +1,26 @@
 OASISFormat: 0.4
-Name:        ReactGtk
+Name:        netwire
 Version:     0.0.1
-Synopsis:    Foo
+Synopsis:    netwire
 Authors:     Yuri da Costa Albuquerque
 License:     MIT
-Plugins:     META (0.4)
+Plugins:     META (0.4), DevFiles (0.4)
+BuildTools:   ocamlbuild
 
-Library "Netwire"
+Library netwire
   Path:         src
-  BuildTools:   ocamlbuild
   Modules:      Netwire
+  BuildDepends: unix
+
+
+
+AlphaFeatures: ocamlbuild_more_args
+Document "netwire_api"
+  Type: ocamlbuild (0.4)
+  BuildTools: ocamldoc
+
+  Title: API reference for Netwire
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: netwire
