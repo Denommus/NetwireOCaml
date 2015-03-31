@@ -13,6 +13,18 @@ Library netwire
   BuildDepends: unix
 
 
+Executable time_wire
+  Path: test
+  MainIs: time_wire.ml
+  CompiledObject: best
+  BuildDepends: netwire
+
+Test "time_wire"
+  TestTools: test_wire
+  Command: $time_wire
+  WorkingDirectory: test
+
+
 
 AlphaFeatures: ocamlbuild_more_args
 Document "netwire_api"
