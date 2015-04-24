@@ -20,7 +20,7 @@ Executable time_wire
   BuildDepends: netwire
 
 Test "time_wire"
-  TestTools: test_wire
+  TestTools: time_wire
   Command: $time_wire
   WorkingDirectory: test
 
