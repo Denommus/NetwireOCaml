@@ -13,6 +13,23 @@ let step_wire_int
     | WGen f -> f time_gen input
     | WId -> (input, w)
 
+let pure x = WConst x
+
+let rec apply wf wx = WGen (fun ds input ->
+    let f, nwf = step_wire_int wf ds input in
+    let x, nwx = step_wire_int wx ds input in
+    (f x, apply nwf nwx))
+
+let rec map f = function (WArr g)        -> WArr (fun x -> f (g x))
+                       | (WConst mx)     -> WConst (f mx)
+                       | (WGen mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
+                                                   (f x, map f nwx))
+                       | WId             -> WArr f
+
+let arr f = WArr f
+
+let id = WId
+
 
 module Time = struct
 
