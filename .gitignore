@@ -11,3 +11,4 @@ META
 Makefile
 configure
 *.odocl
+*.docdir
