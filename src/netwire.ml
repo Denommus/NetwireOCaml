@@ -32,13 +32,27 @@ let lift2 f w1 w2 = apply (map f w1) w2
 
 let lift3 f w1 w2 w3 = apply (apply (map f w1) w2) w3
 
+let id = WId
+
+let rec ( >>> ) wx wy = WGen (fun ds input -> let (x,nwx) = step_wire_int wx ds input in
+                             let (y, nwy) = step_wire_int wy ds x in
+                             (y, nwx >>> nwy))
+
 let arr f = WArr f
 
 let rec first wx = WGen (fun ds (a, in2) -> let x, nwx = step_wire_int wx ds a in
                           ((x, in2), first nwx))
 
-let id = WId
+let second f = let swap (x,y) = y,x in
+  arr swap >>> first f >>> arr swap
 
+let ( *** ) f g = first f >>> second g
+
+let ( &&& ) f g = (arr (fun b -> b,b)) >>> f *** g
+
+let (^>>) f g = arr f >>> g
+
+let (>>^) f g = f >>> arr g
 
 module Time = struct
 
