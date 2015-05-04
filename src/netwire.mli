@@ -33,6 +33,12 @@ val ( ^>> ): ('a -> 'b) -> ('b, 'c) wire -> ('a, 'c) wire
 
 val ( >>^ ): ('a, 'b) wire -> ('b -> 'c) -> ('a, 'c) wire
 
+val empty: (_, 'a option) wire
+
+val (<+>): ('a, 'b option) wire -> ('a, 'b option) wire -> ('a, 'b option) wire
+
+val (<|>): ('a, 'b option) wire -> ('a, 'b option) wire -> ('a, 'b option) wire
+
 module Time : sig
   type t = float
 

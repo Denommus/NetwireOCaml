@@ -35,8 +35,8 @@ let lift3 f w1 w2 w3 = apply (apply (map f w1) w2) w3
 let id = WId
 
 let rec ( >>> ) wx wy = WGen (fun ds input -> let (x,nwx) = step_wire_int wx ds input in
-                             let (y, nwy) = step_wire_int wy ds x in
-                             (y, nwx >>> nwy))
+                               let (y, nwy) = step_wire_int wy ds x in
+                               (y, nwx >>> nwy))
 
 let arr f = WArr f
 
@@ -53,6 +53,24 @@ let ( &&& ) f g = (arr (fun b -> b,b)) >>> f *** g
 let (^>>) f g = arr f >>> g
 
 let (>>^) f g = f >>> arr g
+
+let empty = WConst None
+
+let rec (<+>)
+  : type input out . (input, out option) wire -> (input, out option) wire -> (input, out option) wire
+  = fun w1 w2 -> match (w1,w2) with
+    | (WConst (Some _), _) -> w1
+    | (WId, _) -> w1
+    | (WConst None, _) -> w2
+    | (_,_) -> let choose = function
+        | (Some _ as mx1, _) -> mx1
+        | (_, (Some _ as mx2)) -> mx2
+        | (None, None) -> None in
+      WGen (fun ds input -> let (mx1, nw1) = step_wire_int w1 ds input in
+             let (mx2, nw2) = step_wire_int w2 ds input in
+             choose (mx1, mx2), nw1 <+> nw2)
+
+let (<|>) = (<+>)
 
 module Time = struct
 
