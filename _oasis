@@ -11,6 +11,9 @@ Library netwire
   Path:         src
   Modules:      Netwire
   BuildDepends: unix
+  XMETAEnable: true
+  XMETARequires: unix
+  XMETADescription: Netwire
 
 
 Executable time_wire
@@ -18,6 +21,7 @@ Executable time_wire
   MainIs: time_wire.ml
   CompiledObject: best
   BuildDepends: netwire
+  Install: false
 
 Test "time_wire"
   TestTools: time_wire
