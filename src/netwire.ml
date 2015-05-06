@@ -20,11 +20,13 @@ let rec apply wf wx = WGen (fun ds input ->
     let x, nwx = step_wire_int wx ds input in
     (f x, apply nwf nwx))
 
-let rec map f = function (WArr g)        -> WArr (fun x -> f (g x))
-                       | (WConst mx)     -> WConst (f mx)
-                       | (WGen mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
-                                                   (f x, map f nwx))
-                       | WId             -> WArr f
+let rec map
+  : type input out1 out2 . (out1 -> out2) -> (input, out1) wire -> (input, out2) wire
+  = fun f -> function (WArr g)        -> WArr (fun x -> f (g x))
+                    | (WConst mx)     -> WConst (f mx)
+                    | (WGen mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
+                                                (f x, map f nwx))
+                    | WId             -> WArr f
 
 let lift = map
 

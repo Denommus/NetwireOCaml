@@ -6,14 +6,14 @@ val pure: 'a -> (_, 'a) wire
 
 val apply: ('i, 'a -> 'b) wire -> ('i, 'a) wire -> ('i, 'b) wire
 
-val map: ('a -> 'b) -> ('a, 'a) wire -> ('a, 'b) wire
+val map: ('a -> 'b) -> ('i, 'a) wire -> ('i, 'b) wire
 
-val lift: ('a -> 'b) -> ('a, 'a) wire -> ('a, 'b) wire
+val lift: ('a -> 'b) -> ('i, 'a) wire -> ('i, 'b) wire
 
-val lift2: ('a -> 'b -> 'c) -> ('a, 'a) wire -> ('a, 'b) wire -> ('a, 'c) wire
+val lift2: ('a -> 'b -> 'c) -> ('i, 'a) wire -> ('i, 'b) wire -> ('i, 'c) wire
 
-val lift3: ('a -> 'b -> 'c -> 'd) -> ('a, 'a) wire -> ('a, 'b) wire ->
-  ('a, 'c) wire -> ('a, 'd) wire
+val lift3: ('a -> 'b -> 'c -> 'd) -> ('i, 'a) wire -> ('i, 'b) wire ->
+  ('i, 'c) wire -> ('i, 'd) wire
 
 val id: ('a, 'a) wire
 
