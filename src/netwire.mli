@@ -1,3 +1,7 @@
+module Either: sig
+  type ('left, 'right) t
+end
+
 type ('input, 'output) wire
 
 val step_wire: ?step:(unit -> float) -> ('a, 'b) wire -> 'a -> 'b * ('a, 'b) wire
@@ -38,6 +42,10 @@ val empty: (_, 'a option) wire
 val (<+>): ('a, 'b option) wire -> ('a, 'b option) wire -> ('a, 'b option) wire
 
 val (<|>): ('a, 'b option) wire -> ('a, 'b option) wire -> ('a, 'b option) wire
+
+val left: ('a, 'b) wire -> (('a, 'c) Either.t, ('b, 'c) Either.t) wire
+
+val right: ('a, 'b) wire -> (('c, 'a) Either.t, ('c, 'b) Either.t) wire
 
 module Time : sig
   type t = float

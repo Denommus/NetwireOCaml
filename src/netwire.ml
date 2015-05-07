@@ -1,3 +1,8 @@
+module Either = struct
+  type ('left, 'right) t =
+    | Left of 'left
+    | Right of 'right
+end
 
 type (_, _) wire =
   | WArr: ('a -> 'b) -> ('a, 'b) wire
@@ -73,6 +78,14 @@ let rec (<+>)
              choose (mx1, mx2), nw1 <+> nw2)
 
 let (<|>) = (<+>)
+
+let rec left w = WGen Either.(fun ds -> function
+    | Left x -> let y, nw = step_wire_int w ds x in (Left y, left nw)
+    | Right x -> (Right x, left w))
+
+let rec right w = WGen Either.(fun ds -> function
+    | Left x -> (Left x, right w)
+    | Right x -> let y, nw = step_wire_int w ds x in (Right y, right nw))
 
 module Time = struct
 
