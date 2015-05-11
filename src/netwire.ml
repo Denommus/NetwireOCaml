@@ -87,6 +87,13 @@ let rec right w = WGen Either.(fun ds -> function
     | Left x -> (Left x, right w)
     | Right x -> let y, nw = step_wire_int w ds x in (Right y, right nw))
 
+let (+++) w1 w2 = left w1 >>> right w2
+
+let (|||) w1 w2 = Either.(let untag = function
+    | (Left x) -> x
+    | (Right y) -> y in
+   w1 +++ w2 >>> arr untag)
+
 module Time = struct
 
   type t = float

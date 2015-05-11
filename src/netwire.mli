@@ -47,6 +47,10 @@ val left: ('a, 'b) wire -> (('a, 'c) Either.t, ('b, 'c) Either.t) wire
 
 val right: ('a, 'b) wire -> (('c, 'a) Either.t, ('c, 'b) Either.t) wire
 
+val (+++): ('a1, 'b1) wire -> ('a2, 'b2) wire -> (('a1, 'a2) Either.t, ('b1, 'b2) Either.t) wire
+
+val (|||): ('a, 'c) wire -> ('b, 'c) wire -> (('a, 'b) Either.t, 'c) wire
+
 module Time : sig
   type t = float
 
