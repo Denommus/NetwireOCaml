@@ -94,6 +94,24 @@ let (|||) w1 w2 = Either.(let untag = function
     | (Right y) -> y in
    w1 +++ w2 >>> arr untag)
 
+let rec dimap
+  : type a b c d. (a -> b) -> (c -> d) -> (b, c) wire -> (a, d) wire
+  = fun f g -> function
+    | WArr h -> WArr (fun x -> f x |> h |> g)
+    | WConst mx -> WConst (g mx)
+    | WId -> WArr (fun x -> f x |> g)
+    | WGen h -> WGen (fun ds input ->
+      f input |> h ds |> (fun (x, y) -> (g x, dimap f g y)))
+
+let rec lmap
+  : type a b c. (a -> b) -> (b, c) wire -> (a, c) wire
+  = fun f -> function
+    | WArr g -> WArr (fun x -> f x |> g)
+    | WConst mx -> WConst mx
+    | WId -> WArr f
+    | WGen g -> WGen (fun ds input ->
+        f input |> g ds |> (fun (x, w) -> (x, lmap f w)))
+
 module Time = struct
 
   type t = float

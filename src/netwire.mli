@@ -51,6 +51,10 @@ val (+++): ('a1, 'b1) wire -> ('a2, 'b2) wire -> (('a1, 'a2) Either.t, ('b1, 'b2
 
 val (|||): ('a, 'c) wire -> ('b, 'c) wire -> (('a, 'b) Either.t, 'c) wire
 
+val dimap: ('a -> 'b) -> ('c -> 'd) -> ('b, 'c) wire -> ('a, 'd) wire
+
+val lmap: ('a -> 'b) -> ('b, 'c) wire -> ('a, 'c) wire
+
 module Time : sig
   type t = float
 
