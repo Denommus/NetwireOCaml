@@ -55,6 +55,14 @@ val dimap: ('a -> 'b) -> ('c -> 'd) -> ('b, 'c) wire -> ('a, 'd) wire
 
 val lmap: ('a -> 'b) -> ('b, 'c) wire -> ('a, 'c) wire
 
+val mk_const: 'a -> (_, 'a) wire
+
+val mk_empty: (_, _ option) wire
+
+val mk_gen: ((unit -> float) -> 'a -> ('b * ('a, 'b) wire)) -> ('a, 'b) wire
+
+val mk_id: ('a, 'a) wire
+
 module Time : sig
   type t = float
 

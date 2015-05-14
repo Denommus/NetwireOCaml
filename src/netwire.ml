@@ -112,6 +112,14 @@ let rec lmap
     | WGen g -> WGen (fun ds input ->
         f input |> g ds |> (fun (x, w) -> (x, lmap f w)))
 
+let mk_const x = WConst x
+
+let mk_empty = WConst None
+
+let mk_gen f = WGen f
+
+let mk_id = WId
+
 module Time = struct
 
   type t = float
