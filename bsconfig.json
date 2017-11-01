@@ -1,0 +1,11 @@
+{
+  "name": "netwire-ocaml",
+  "reason": {"react-jsx": 2},
+  "refmt": 3,
+  "version": "0.0.1",
+  "sources": [
+    {"dir":"src"},
+    {"dir":"test"}
+  ],
+  "bs-dependencies": []
+}
