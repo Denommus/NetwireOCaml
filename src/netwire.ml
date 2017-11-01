@@ -29,7 +29,7 @@ let rec map
   : type input out1 out2 . (out1 -> out2) -> (input, out1) wire -> (input, out2) wire
   = fun f -> function (WArr g)        -> WArr (fun x -> f (g x))
                     | (WConst mx)     -> WConst (f mx)
-                    | (WGen mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
+                    | (WGen _mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
                                                 (f x, map f nwx))
                     | WId             -> WArr f
 
@@ -146,7 +146,7 @@ module Util = struct
  using a (unit, 'o) wire should be enough.
 *)
   let print_wire show wire =
-    let rec loop w =
+    let rec loop _w =
       let output, w = step_wire wire () in
       Printf.printf "\r%s\027[K" (show output) ;
       loop w
