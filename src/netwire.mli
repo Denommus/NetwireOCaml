@@ -10,7 +10,11 @@ val pure: 'a -> (_, 'a) wire
 
 val apply: ('i, 'a -> 'b) wire -> ('i, 'a) wire -> ('i, 'b) wire
 
+val (<*>): ('i, 'a -> 'b) wire -> ('i, 'a) wire -> ('i, 'b) wire
+
 val map: ('a -> 'b) -> ('i, 'a) wire -> ('i, 'b) wire
+
+val (<$>): ('a -> 'b) -> ('i, 'a) wire -> ('i, 'b) wire
 
 val lift: ('a -> 'b) -> ('i, 'a) wire -> ('i, 'b) wire
 
@@ -63,7 +67,7 @@ val mk_gen: ((unit -> float) -> 'a -> ('b * ('a, 'b) wire)) -> ('a, 'b) wire
 
 val mk_id: ('a, 'a) wire
 
-module Time : sig
+module NetTime : sig
   type t = float
 
   val time : (_, float) wire

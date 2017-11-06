@@ -1,4 +1,6 @@
 open Netwire
 
 
-let () = Util.print_wire (Printf.sprintf "%f") (apply (map (fun () -> ((+.) 20.)) id) Time.time)
+let () =
+  (fun _ x -> x +. 20.) <$> id <*> NetTime.time
+  |> Util.print_wire (Printf.sprintf "%f")

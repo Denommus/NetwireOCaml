@@ -1,0 +1,1 @@
+let gettimeofday () = Unix.gettimeofday ()

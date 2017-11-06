@@ -9,4 +9,6 @@ S test
 B lib/bs/test
 S src
 B lib/bs/src
+S bs
+B lib/bs/bs
 ####BSB GENERATED: NO EDIT}

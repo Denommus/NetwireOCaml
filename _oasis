@@ -7,10 +7,18 @@ License:     MIT
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:   ocamlbuild
 
+Library time
+  Path: native
+  Modules: Time
+  BuildDepends: unix
+  XMETAEnable: true
+  XMETARequires: unix
+  XMETADescription: Netwire
+
 Library netwire
   Path:         src
   Modules:      Netwire
-  BuildDepends: unix
+  BuildDepends: time
   XMETAEnable: true
   XMETARequires: unix
   XMETADescription: Netwire

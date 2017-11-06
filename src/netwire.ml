@@ -25,13 +25,17 @@ let rec apply wf wx = WGen (fun ds input ->
     let x, nwx = step_wire_int wx ds input in
     (f x, apply nwf nwx))
 
+let (<*>) wf wx = apply wf wx
+
 let rec map
   : type input out1 out2 . (out1 -> out2) -> (input, out1) wire -> (input, out2) wire
   = fun f -> function (WArr g)        -> WArr (fun x -> f (g x))
                     | (WConst mx)     -> WConst (f mx)
                     | (WGen _mx) as wx -> WGen (fun ds input -> let x, nwx = step_wire_int wx ds input in
-                                                (f x, map f nwx))
+                                                 (f x, map f nwx))
                     | WId             -> WArr f
+
+let (<$>) f w = map f w
 
 let lift = map
 
@@ -87,12 +91,12 @@ let rec right w = WGen Either.(fun ds -> function
     | Left x -> (Left x, right w)
     | Right x -> let y, nw = step_wire_int w ds x in (Right y, right nw))
 
-let (+++) w1 w2 = left w1 >>> right w2
+let (+++) w1 w2 = (left w1) >>> (right w2)
 
 let (|||) w1 w2 = Either.(let untag = function
     | (Left x) -> x
     | (Right y) -> y in
-   w1 +++ w2 >>> arr untag)
+   (w1 +++ w2) >>> (arr untag))
 
 let rec dimap
   : type a b c d. (a -> b) -> (c -> d) -> (b, c) wire -> (a, d) wire
@@ -101,7 +105,7 @@ let rec dimap
     | WConst mx -> WConst (g mx)
     | WId -> WArr (fun x -> f x |> g)
     | WGen h -> WGen (fun ds input ->
-      f input |> h ds |> (fun (x, y) -> (g x, dimap f g y)))
+        f input |> h ds |> (fun (x, y) -> (g x, dimap f g y)))
 
 let rec lmap
   : type a b c. (a -> b) -> (b, c) wire -> (a, c) wire
@@ -120,13 +124,15 @@ let mk_gen f = WGen f
 
 let mk_id = WId
 
-module Time = struct
+module NetTime = struct
 
-  type t = float
+  type t = float;;
+
+  let gettimeofday () = Time.gettimeofday ()
 
   let default_step =
-    let init_t = Unix.gettimeofday () in
-    fun () -> Unix.gettimeofday () -. init_t
+    let init_t = gettimeofday () in
+    fun () -> gettimeofday () -. init_t
 
   let time =
     let rec f get_time _ = let t = get_time () in t, w
@@ -135,7 +141,7 @@ module Time = struct
 
 end
 
-let step_wire ?(step=Time.default_step) wire input = step_wire_int wire step input
+let step_wire ?(step=NetTime.default_step) wire input = step_wire_int wire step input
 
 module Util = struct
 
