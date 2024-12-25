@@ -1,3 +1,3 @@
-(test
- (libraries netwire)
- (name timeWire))
+(executable
+ (name timeWire)
+ (libraries netwire))
