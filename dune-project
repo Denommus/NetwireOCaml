@@ -10,10 +10,3 @@
  (description "An AFRP library based on Netwire")
  (depends
   (ocaml (>= 5.0))))
-
-(package
- (name netwireTime)
- (synopsis "Helper library for netwire")
- (description "Helper library for getting current time in netwire")
- (depends
-  (ocaml (>= 5.0))))

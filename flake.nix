@@ -19,7 +19,6 @@
         overlay = (
           final: prev: {
             "${pname}" = final.ocamlPackages.callPackage ./. { inherit pname; };
-            netwireTime = final.ocamlPackages.callPackage ./netwireTime.nix { pname = "netwireTime"; };
           }
         );
         pkgs = import nixpkgs {
@@ -33,7 +32,6 @@
         packages = {
           default = pkgs."${pname}";
           "${pname}" = pkgs."${pname}";
-          netwireTime = pkgs.netwireTime;
         };
 
         devShells.default = pkgs.mkShell {

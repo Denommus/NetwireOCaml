@@ -1,4 +1,4 @@
 (library
- (name time)
- (public_name netwireTime)
+ (name timeUnix)
+ (implements netwire)
  (libraries unix))

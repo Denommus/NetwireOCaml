@@ -1,7 +1,6 @@
 {
   buildDunePackage,
   pname,
-  netwireTime,
 }:
 buildDunePackage {
   inherit pname;
@@ -12,8 +11,6 @@ buildDunePackage {
   src = ./.;
 
   minimalOCamlVersion = "5.0";
-
-  buildInputs = [ netwireTime ];
 
   doCheck = true;
 }
