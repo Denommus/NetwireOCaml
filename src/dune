@@ -1,0 +1,4 @@
+(library
+ (name netwire)
+ (public_name netwire)
+ (libraries netwireTime))

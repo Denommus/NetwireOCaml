@@ -15,3 +15,6 @@ configure
 lib/
 node_modules
 .bsb.lock
+
+result
+.direnv
