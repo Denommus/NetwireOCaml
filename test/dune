@@ -1,0 +1,3 @@
+(test
+ (libraries netwire)
+ (name time_wire))
