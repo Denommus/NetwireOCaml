@@ -5,6 +5,7 @@ description: "An AFRP library based on Netwire"
 depends: [
   "dune" {>= "3.17"}
   "ocaml" {>= "5.0"}
+  "melange"
   "odoc" {with-doc}
 ]
 build: [

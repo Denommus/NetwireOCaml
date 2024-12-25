@@ -1,5 +1,6 @@
 {
   buildDunePackage,
+  melange,
   pname,
 }:
 buildDunePackage {
@@ -11,6 +12,8 @@ buildDunePackage {
   src = ./.;
 
   minimalOCamlVersion = "5.0";
+
+  nativeBuildInputs = [ melange ];
 
   doCheck = true;
 }
