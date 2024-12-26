@@ -4,6 +4,10 @@
 
 (using melange 0.1)
 
+(license "MIT")
+
+(maintainers "Denommus")
+
 (generate_opam_files)
 
 (package
