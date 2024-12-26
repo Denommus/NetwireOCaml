@@ -1,3 +1,9 @@
 (executable
  (name timeWire)
  (libraries netwire timeUnix))
+
+(melange.emit
+ (target output)
+ (libraries netwire timeJs)
+ (preprocess (pps melange.ppx))
+ (module_systems es6))

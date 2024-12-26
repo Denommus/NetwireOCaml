@@ -1,4 +1,5 @@
 (library
  (name netwire)
+ (modes melange native)
  (public_name netwire)
  (virtual_modules time))
