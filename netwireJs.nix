@@ -3,6 +3,7 @@
   pname,
   version,
   melange,
+  netwire,
 }:
 buildDunePackage {
   inherit pname version;
@@ -10,6 +11,8 @@ buildDunePackage {
   src = ./.;
 
   minimalOCamlVersion = "5.0";
+
+  propagatedBuildInputs = [ netwire melange ];
 
   nativeBuildInputs = [ melange ];
 

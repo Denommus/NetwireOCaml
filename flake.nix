@@ -16,6 +16,9 @@
       system:
       let
         pname = "netwire";
+        pnameUnix = "netwireUnix";
+        pnameJs = "netwireJs";
+        version = "0.1";
         dune_src =
           prev:
           prev.fetchFromGitHub {
@@ -26,7 +29,9 @@
           };
         overlay = (
           final: prev: {
-            "${pname}" = final.ocamlPackages.callPackage ./. { inherit pname; };
+            "${pname}" = final.ocamlPackages.callPackage ./. { inherit pname version; };
+            "${pnameUnix}" = final.ocamlPackages.callPackage ./netwireUnix.nix { pname = pnameUnix; inherit version; };
+            "${pnameJs}" = final.ocamlPackages.callPackage ./netwireJs.nix { pname = pnameJs; inherit version; };
             dune_3 = prev.dune_3.overrideAttrs (old: {
               src = dune_src prev;
             });
@@ -50,6 +55,8 @@
         packages = {
           default = pkgs."${pname}";
           "${pname}" = pkgs."${pname}";
+          "${pnameUnix}" = pkgs."${pnameUnix}";
+          "${pnameJs}" = pkgs."${pnameJs}";
         };
 
         devShells.default = pkgs.mkShell {
