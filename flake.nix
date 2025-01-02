@@ -67,6 +67,7 @@
             pkgs.ocamlPackages.utop
             pkgs.ocamlPackages.ocamlformat
             pkgs.ocamlPackages.ocaml-print-intf
+            pkgs.opam
           ];
         };
       }
