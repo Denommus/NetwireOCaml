@@ -1,1 +1,1 @@
-let gettimeofday () = Js.Date.make () |> Js.Date.getTime |> (( *. ) 0.001)
+let gettimeofday () = Js.Date.make () |> Js.Date.getTime |> ( *. ) 0.001
