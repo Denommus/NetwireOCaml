@@ -8,6 +8,12 @@
 
 (maintainers "Denommus")
 
+(authors "Denommus")
+
+(homepage "https://github.com/Denommus/NetwireOCaml/")
+
+(bug_reports "https://github.com/Denommus/NetwireOCaml/issues")
+
 (version 0.1)
 
 (generate_opam_files)

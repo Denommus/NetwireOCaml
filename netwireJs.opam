@@ -4,7 +4,10 @@ version: "0.1"
 synopsis: "An AFRP library based on Netwire - Melange implementation"
 description: "An AFRP library based on Netwire"
 maintainer: ["Denommus"]
+authors: ["Denommus"]
 license: "MIT"
+homepage: "https://github.com/Denommus/NetwireOCaml/"
+bug-reports: "https://github.com/Denommus/NetwireOCaml/issues"
 depends: [
   "dune" {>= "3.17"}
   "ocaml" {>= "5.0"}
