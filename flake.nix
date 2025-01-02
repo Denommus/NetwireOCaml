@@ -26,18 +26,18 @@
           };
         overlay = (
           final: prev: {
-            netwire = final.ocamlPackages.callPackage ./. { inherit version; };
-            netwireUnix = final.ocamlPackages.callPackage ./netwireUnix.nix {
-              inherit version;
-            };
-            netwireJs = final.ocamlPackages.callPackage ./netwireJs.nix {
-              inherit version;
-            };
             dune_3 = prev.dune_3.overrideAttrs (old: {
               src = dune_src prev;
             });
             ocamlPackages = prev.ocamlPackages.overrideScope (
               ofinal: oprev: {
+                netwire = final.ocamlPackages.callPackage ./. { inherit version; };
+                netwireUnix = final.ocamlPackages.callPackage ./netwireUnix.nix {
+                  inherit version;
+                };
+                netwireJs = final.ocamlPackages.callPackage ./netwireJs.nix {
+                  inherit version;
+                };
                 dune_3 = oprev.dune_3.overrideAttrs (old: {
                   src = dune_src prev;
                 });
@@ -55,12 +55,12 @@
       {
         packages = {
           default = pkgs.netwire;
-          inherit (pkgs) netwire netwireJs netwireUnix;
+          inherit (pkgs.ocamlPackages) netwire netwireJs netwireUnix;
         };
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [
-            pkgs.netwire
+            pkgs.ocamlPackages.netwire
           ];
           buildInputs = [
             pkgs.ocamlPackages.ocaml-lsp
