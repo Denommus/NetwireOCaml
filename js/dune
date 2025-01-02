@@ -1,6 +1,7 @@
 (library
  (name timeJs)
  (public_name netwireJs)
+ (libraries netwire)
  (implements netwire)
  (modes melange)
  (preprocess (pps melange.ppx)))
