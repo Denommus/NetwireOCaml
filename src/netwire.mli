@@ -3,6 +3,8 @@ type ('input, 'output) wire
 val step_wire :
   ?step:(unit -> float) -> ('a, 'b) wire -> 'a -> 'b * ('a, 'b) wire
 
+val loop : initial:'c -> ('a * 'c, 'b * 'c) wire -> ('a, 'b) wire
+
 val pure : 'a -> (_, 'a) wire
 val apply : ('i, 'a -> 'b) wire -> ('i, 'a) wire -> ('i, 'b) wire
 val ( <*> ) : ('i, 'a -> 'b) wire -> ('i, 'a) wire -> ('i, 'b) wire

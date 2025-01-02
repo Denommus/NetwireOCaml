@@ -169,3 +169,11 @@ module Util = struct
     in
     loop wire
 end
+
+let rec loop ~initial w =
+  WGen
+    (fun ds input ->
+      let (out_b, next_state), next_wire =
+        step_wire_int w ds (input, initial)
+      in
+      (out_b, loop ~initial:next_state next_wire))
