@@ -15,9 +15,6 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pname = "netwire";
-        pnameUnix = "netwireUnix";
-        pnameJs = "netwireJs";
         version = "0.1";
         dune_src =
           prev:
@@ -29,13 +26,11 @@
           };
         overlay = (
           final: prev: {
-            "${pname}" = final.ocamlPackages.callPackage ./. { inherit pname version; };
-            "${pnameUnix}" = final.ocamlPackages.callPackage ./netwireUnix.nix {
-              pname = pnameUnix;
+            netwire = final.ocamlPackages.callPackage ./. { inherit version; };
+            netwireUnix = final.ocamlPackages.callPackage ./netwireUnix.nix {
               inherit version;
             };
-            "${pnameJs}" = final.ocamlPackages.callPackage ./netwireJs.nix {
-              pname = pnameJs;
+            netwireJs = final.ocamlPackages.callPackage ./netwireJs.nix {
               inherit version;
             };
             dune_3 = prev.dune_3.overrideAttrs (old: {
@@ -59,15 +54,13 @@
       in
       {
         packages = {
-          default = pkgs."${pname}";
-          "${pname}" = pkgs."${pname}";
-          "${pnameUnix}" = pkgs."${pnameUnix}";
-          "${pnameJs}" = pkgs."${pnameJs}";
+          default = pkgs.netwire;
+          inherit (pkgs) netwire netwireJs netwireUnix;
         };
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [
-            pkgs."${pname}"
+            pkgs.netwire
           ];
           buildInputs = [
             pkgs.ocamlPackages.ocaml-lsp

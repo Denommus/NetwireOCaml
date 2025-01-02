@@ -1,12 +1,12 @@
 {
   buildDunePackage,
-  pname,
   version,
   melange,
   netwire,
 }:
 buildDunePackage {
-  inherit pname version;
+  pname = "netwireJs";
+  inherit version;
 
   src = ./.;
 

@@ -1,11 +1,11 @@
 {
   buildDunePackage,
-  pname,
   version,
   netwire,
 }:
 buildDunePackage {
-  inherit pname version;
+  pname = "netwireUnix";
+  inherit version;
 
   src = ./.;
 
