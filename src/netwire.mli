@@ -1,7 +1,3 @@
-module Either: sig
-  type ('left, 'right) t
-end
-
 type ('input, 'output) wire
 
 val step_wire: ?step:(unit -> float) -> ('a, 'b) wire -> 'a -> 'b * ('a, 'b) wire

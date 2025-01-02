@@ -1,9 +1,3 @@
-module Either = struct
-  type ('left, 'right) t =
-    | Left of 'left
-    | Right of 'right
-end
-
 type (_, _) wire =
   | WArr: ('a -> 'b) -> ('a, 'b) wire
   | WConst: 'b -> (_, 'b) wire
@@ -83,20 +77,20 @@ let rec (<+>)
 
 let (<|>) = (<+>)
 
-let rec left w = WGen Either.(fun ds -> function
-    | Left x -> let y, nw = step_wire_int w ds x in (Left y, left nw)
-    | Right x -> (Right x, left w))
+let rec left w = WGen (fun ds -> function
+    | Either.Left x -> let y, nw = step_wire_int w ds x in (Either.Left y, left nw)
+    | Either.Right x -> (Either.Right x, left w))
 
-let rec right w = WGen Either.(fun ds -> function
-    | Left x -> (Left x, right w)
-    | Right x -> let y, nw = step_wire_int w ds x in (Right y, right nw))
+let rec right w = WGen (fun ds -> function
+    | Either.Left x -> (Either.Left x, right w)
+    | Either.Right x -> let y, nw = step_wire_int w ds x in (Either.Right y, right nw))
 
 let (+++) w1 w2 = (left w1) >>> (right w2)
 
-let (|||) w1 w2 = Either.(let untag = function
-    | (Left x) -> x
-    | (Right y) -> y in
-   (w1 +++ w2) >>> (arr untag))
+let (|||) w1 w2 = let untag = function
+                    | (Either.Left x) -> x
+                    | (Either.Right y) -> y in
+                  (w1 +++ w2) >>> (arr untag)
 
 let rec dimap
   : type a b c d. (a -> b) -> (c -> d) -> (b, c) wire -> (a, d) wire
