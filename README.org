@@ -1,0 +1,48 @@
+* Netwire OCaml
+
+This library is completely based on Haskell's [[https://hackage.haskell.org/package/netwire][netwire]] (though I wrote
+the code on my own, there was no compilation from one language to
+another, hence the copyright is mine) and the usage should be somewhat
+similar (except, of course, by the lack of syntax support for arrows
+in OCaml). Besides being made in a strict language, there are some
+other differences:
+
+** ArrowLoop
+
+~ArrowLoop~ is implemented in a hacky way. You need an initial value,
+then each step will depend on the previous step. Haskell's lazyness
+makes it easier to implement ~ArrowLoop~ on top of ~MonadFix~. So I
+used an approach more or less similar to [[https://erratique.ch/software/react][React]]'s fix. If anyone can
+come up with an implementation that actually uses some sort of
+fixed-point function and doesn't simply run an infinite loop, I'd
+appreciate it.
+
+** Wire type
+
+The ~Wire~ type itself is much simpler in the OCaml library. Since
+side effects are easy to introduce in OCaml, there's no need to wrap
+the Wire step in a monad (the ~m~ in ~Wire s e m a b~). There also
+isn't a generic ~step~ parameter (the ~s~ in the ~Wire~ type), I just
+use a float to step.
+
+The other type difference is regarding inhibition (related to the ~e~
+in the ~Wire~ type), explained below.
+
+In short, instead of all the five type parameters (~Wire s e m a b~),
+I only use the two main ones (~a~ and ~b~), so a ~Wire~ in OCaml is a
+~('a, b') wire~.
+
+** Inhibition
+
+Every Wire in Haskell's netwire /inhibits/. That means there's
+always an implicit ~Either~ (in this context, being used in an
+equivalent way to OCaml's ~Result.t~). And if a Wire starts emitting
+the ~Left~ side of the ~Either~, the Wire /inhibits/, which makes it
+acts as an empty Wire.
+
+For me, this behavior was a design mistake. If a wire anywhere in the
+graph inhibits, every wire after it simply inhibits without much
+control. It makes much more sense to leave the possibility of failure
+in the hands of the user. So, in OCaml's netwire, if you want a Wire
+that may fail, you'll need to manually use a ~('a, 'b option) wire~, a
+~('a, ('e, 'b) result) wire~ or a ~('a, ('b, 'c) Either.t) wire~.
