@@ -54,7 +54,7 @@
       in
       {
         packages = {
-          default = pkgs.netwire;
+          default = pkgs.ocamlPackages.netwire;
           inherit (pkgs.ocamlPackages) netwire netwireJs netwireUnix;
         };
 
