@@ -16,19 +16,8 @@
       system:
       let
         version = "0.1";
-        dune_src =
-          prev:
-          prev.fetchFromGitHub {
-            owner = "ocaml";
-            repo = "dune";
-            rev = "34de4d1264240f2bddeda4128a2bd285488341ab";
-            hash = "sha256-kO9nwa0RrOZvpLvISuqyRDl+g1sJ7IGnpbF0el+MCn8=";
-          };
         overlay = (
           final: prev: {
-            dune_3 = prev.dune_3.overrideAttrs (old: {
-              src = dune_src prev;
-            });
             ocamlPackages = prev.ocamlPackages.overrideScope (
               ofinal: oprev: {
                 netwire = final.ocamlPackages.callPackage ./. { inherit version; };
@@ -38,9 +27,6 @@
                 netwireJs = final.ocamlPackages.callPackage ./netwireJs.nix {
                   inherit version;
                 };
-                dune_3 = oprev.dune_3.overrideAttrs (old: {
-                  src = dune_src prev;
-                });
               }
             );
           }
