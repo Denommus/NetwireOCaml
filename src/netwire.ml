@@ -135,8 +135,6 @@ let mk_gen f = WGen f
 let mk_id = WId
 
 module NetTime = struct
-  type t = float
-
   let gettimeofday () = Time.gettimeofday ()
 
   let default_step =

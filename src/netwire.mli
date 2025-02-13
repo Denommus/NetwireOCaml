@@ -54,8 +54,6 @@ val mk_gen : ((unit -> float) -> 'a -> 'b * ('a, 'b) wire) -> ('a, 'b) wire
 val mk_id : ('a, 'a) wire
 
 module NetTime : sig
-  type t = float
-
   val time : (_, float) wire
 end
 
