@@ -10,7 +10,7 @@ homepage: "https://github.com/Denommus/NetwireOCaml/"
 bug-reports: "https://github.com/Denommus/NetwireOCaml/issues"
 depends: [
   "dune" {>= "3.17"}
-  "ocaml" {>= "5.0"}
+  "ocaml" {>= "5.2"}
   "odoc" {with-doc}
 ]
 build: [

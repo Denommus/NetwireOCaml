@@ -23,19 +23,19 @@
  (synopsis "An AFRP library based on Netwire")
  (description "An AFRP library based on Netwire")
  (depends
-  (ocaml (>= 5.0))))
+  (ocaml (>= 5.2))))
 
 (package
  (name netwireUnix)
  (synopsis "An AFRP library based on Netwire - Native implementation")
  (description "An AFRP library based on Netwire")
  (depends
-  (ocaml (>= 5.0))))
+  (ocaml (>= 5.2))))
 
 (package
  (name netwireJs)
  (synopsis "An AFRP library based on Netwire - Melange implementation")
  (description "An AFRP library based on Netwire")
  (depends
-  (ocaml (>= 5.0))
+  (ocaml (>= 5.2))
   melange))

@@ -9,7 +9,7 @@ buildDunePackage {
 
   src = ./.;
 
-  minimalOCamlVersion = "5.0";
+  minimalOCamlVersion = "5.2";
 
   nativeBuildInputs = [ melange ];
 
